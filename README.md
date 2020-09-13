@@ -1,7 +1,7 @@
 # python3_docker_environment
 
 Python 3.8.5 を環境へインストールせずに実行するためだけのプロジェクト。  
-環境にいろいろインストールしたくないがちょろっと試したい、という用途の想定。
+環境にいろいろインストールしたくないがちょろっと試したい、Python でちょっとしたツールを作成しなきゃいけない、という用途に使用する想定。
 
 ビルド：
 
@@ -23,9 +23,34 @@ Python 3.8.5
 ```
 
 
-例：services で定義した python3 を使い、コンテナ内の Python のバージョンを確認する
+例：services で定義した python3 を使い、コンテナ内の Python を実行する
 
 ```sh
-$ docker-compose exec python3 python ./helloworld.py
+$ docker-compose exec python3 python ./project/helloworld.py
 Hello, World!
+```
+
+
+例：services で定義した python3 を使い、`make` を実行する
+
+```sh
+$ docker-compose exec python3 make black
+black .
+All done! ✨ 🍰 ✨
+1 file left unchanged.
+```
+
+Makefile の内容は以下の通り。
+
+```sh
+cat Makefile
+
+black:
+	black project/
+flake8:
+	flake8 project/
+isort:
+	isort project/
+mypy:
+	mypy project/
 ```
